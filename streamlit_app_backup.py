@@ -68,7 +68,6 @@ class CaikeRAGChatbot:
         5. 구체적인 예시나 화면 설명이 매뉴얼에 있다면 포함해주세요
         6. 친근하고 전문적인 톤을 유지해주세요
         7. 한국어로 답변해주세요
-        8. 참조 문서를 언급할 때는 [doc1], [doc2] 같은 번호 대신 관련도 점수를 소수점 2자리까지 표시하세요 (예: [관련도: 0.85])
         
         매뉴얼 외의 일반적인 질문, 다른 시스템에 대한 질문, 개인적인 의견을 묻는 질문에는 
         위의 3번 규칙에 따른 표준 응답을 사용하세요.
@@ -131,24 +130,69 @@ def main():
         initial_sidebar_state="expanded"
     )
     
-    # 챗봇 초기화 및 연결상태 확인
-    connection_status = "❌"  # 기본값: 연결 실패
-    try:
-        if "chatbot" not in st.session_state:
-            st.session_state.chatbot = CaikeRAGChatbot()
-        connection_status = "🟢"  # 연결 성공
-    except Exception as e:
-        print(f"[ERROR] 챗봇 초기화 오류: {str(e)}")
-        connection_status = "🔴"  # 연결 실패
-    
-    # 제목 및 설명 (연결상태 포함)
-    st.title(f"🎬 CAIKE 흥행예측시스템 가이드 챗봇 {connection_status}")
+    # 제목 및 설명
+    st.title("🎬 CAIKE 흥행예측시스템 가이드 챗봇")
     st.markdown("**CAIKE 흥행예측시스템 사용법에 대해 궁금한 것이 있으시면 언제든 물어보세요!**")
     
     # 사이드바 설정
     with st.sidebar:
-        #st.header("⚙️ 시스템 정보")
+        st.header("⚙️ 시스템 정보")
         
+        # 환경 변수 확인
+        with st.expander("🔧 환경 설정 확인"):
+            env_vars = [
+                "AZURE_OPENAI_API_KEY",
+                "AZURE_OPENAI_ENDPOINT", 
+                "AZURE_OPENAI_DEPLOYMENT_NAME",
+                "AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME",
+                "AZURE_SEARCH_ENDPOINT",
+                "AZURE_SEARCH_API_KEY",
+                "AZURE_SEARCH_INDEX_NAME"
+            ]
+            
+            env_status = {}
+            for var in env_vars:
+                value = os.getenv(var)
+                env_status[var] = bool(value)
+                
+            # 요약 상태 표시
+            total_vars = len(env_vars)
+            configured_vars = sum(env_status.values())
+            
+            if configured_vars == total_vars:
+                st.success(f"✅ 모든 환경 변수 설정 완료 ({configured_vars}/{total_vars})")
+            else:
+                st.warning(f"⚠️ 환경 변수 설정 필요 ({configured_vars}/{total_vars})")
+            
+            # 상세 정보 (선택적 표시)
+            if st.checkbox("상세 정보 보기", key="env_details"):
+                for var, is_set in env_status.items():
+                    if is_set:
+                        st.success(f"✅ {var}")
+                    else:
+                        st.error(f"❌ {var}")
+        
+        st.markdown("---")
+        
+        # 시스템 상태 확인
+        if st.button("🔄 연결 상태 확인", key="check_connection"):
+            if "chatbot" in st.session_state and st.session_state.chatbot is not None:
+                try:
+                    # 간단한 테스트 호출
+                    test_message = [{"role": "user", "content": "안녕하세요"}]
+                    test_response = st.session_state.chatbot.generate_response(test_message)
+                    if "오류" not in test_response:
+                        st.success("✅ 시스템 연결 정상")
+                    else:
+                        st.warning("⚠️ 시스템 응답에 문제가 있을 수 있습니다")
+                except Exception as e:
+                    # 에러 로그는 콘솔에만 출력
+                    print(f"[ERROR] 연결 테스트 오류: {str(e)}")
+                    st.error("연결 테스트에 실패했습니다.")
+            else:
+                st.error("❌ 챗봇이 초기화되지 않았습니다")
+        
+        st.markdown("---")
         st.markdown("### 💡 사용 팁")
         st.markdown("""
         **CAIKE 시스템 관련 질문 예시:**
@@ -192,9 +236,14 @@ def main():
             }
         ]
     
-    # 챗봇 초기화 상태 확인 및 에러 처리
-    if "chatbot" not in st.session_state or st.session_state.chatbot is None:
-        if connection_status == "🔴":
+    if "chatbot" not in st.session_state:
+        try:
+            st.session_state.chatbot = CaikeRAGChatbot()
+            st.success("✅ 챗봇이 성공적으로 초기화되었습니다.")
+        except Exception as e:
+            # 에러 로그는 콘솔에만 출력
+            print(f"[ERROR] 챗봇 초기화 오류: {str(e)}")
+            # 사용자에게는 친화적인 메시지만 표시
             st.error("챗봇 초기화 중 문제가 발생했습니다.")
             st.info("환경 설정을 확인하거나 페이지를 새로고침해 주세요.")
             st.stop()
