@@ -71,35 +71,44 @@ def main():
     # 현재 스크립트가 있는 디렉토리
     current_dir = os.path.dirname(os.path.abspath(__file__))
     
-    # PDF 파일 경로
-    pdf_file_path = os.path.join(current_dir, "CAIKE-TR-D271-사용자매뉴얼-v1.0_20241018.pdf")
+    # PDF 파일 경로들
+    pdf_files = [
+        "CAIKE-TR-D271-사용자매뉴얼-v1.0_20241018.pdf",
+        "CAIKE_INFO.pdf"
+    ]
     
-    print("🚀 CAIKE 매뉴얼 PDF 분할 시작")
+    print("🚀 CAIKE PDF 파일들 분할 시작")
     print("=" * 50)
     
-    # PDF 파일 존재 확인
-    if not os.path.exists(pdf_file_path):
-        print(f"❌ PDF 파일을 찾을 수 없습니다: {pdf_file_path}")
-        print("📁 현재 디렉토리의 파일 목록:")
-        for file in os.listdir(current_dir):
-            if file.endswith('.pdf'):
-                print(f"   - {file}")
-        return
-    
-    # PDF 분할 실행
-    created_files = separate_pdf_pages(pdf_file_path)
-    
-    if created_files:
-        print("\n📋 생성된 파일 목록:")
-        for i, file_path in enumerate(created_files[:5], 1):  # 처음 5개만 표시
-            print(f"   {i}. {os.path.basename(file_path)}")
+    for pdf_filename in pdf_files:
+        pdf_file_path = os.path.join(current_dir, pdf_filename)
         
-        if len(created_files) > 5:
-            print(f"   ... 및 {len(created_files) - 5}개 파일 더")
+        print(f"\n📄 처리 중인 파일: {pdf_filename}")
+        print("-" * 40)
         
-        print(f"\n💡 모든 파일은 'separated_pages' 폴더에 저장되었습니다.")
-    else:
-        print("\n❌ 파일 분할에 실패했습니다.")
+        # PDF 파일 존재 확인
+        if not os.path.exists(pdf_file_path):
+            print(f"❌ PDF 파일을 찾을 수 없습니다: {pdf_filename}")
+            continue
+        
+        # PDF 분할 실행
+        created_files = separate_pdf_pages(pdf_file_path)
+        
+        if created_files:
+            print(f"\n📋 {pdf_filename}에서 생성된 파일 목록:")
+            for i, file_path in enumerate(created_files[:5], 1):  # 처음 5개만 표시
+                print(f"   {i}. {os.path.basename(file_path)}")
+            
+            if len(created_files) > 5:
+                print(f"   ... 및 {len(created_files) - 5}개 파일 더")
+        else:
+            print(f"\n❌ {pdf_filename} 분할에 실패했습니다.")
+    
+    print(f"\n💡 모든 파일은 'separated_pages' 폴더에 저장되었습니다.")
+    print("\n📁 현재 디렉토리의 PDF 파일 목록:")
+    for file in os.listdir(current_dir):
+        if file.endswith('.pdf'):
+            print(f"   - {file}")
 
 if __name__ == "__main__":
     main()

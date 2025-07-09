@@ -5,6 +5,7 @@ from openai import AzureOpenAI
 
 # 환경 변수 로드
 load_dotenv()
+# joe@newcomputer.kr
 
 class CaikeRAGChatbot:
     def __init__(self):
@@ -68,7 +69,7 @@ class CaikeRAGChatbot:
         5. 구체적인 예시나 화면 설명이 매뉴얼에 있다면 포함해주세요
         6. 친근하고 전문적인 톤을 유지해주세요
         7. 한국어로 답변해주세요
-        8. 참조 문서를 언급할 때는 [doc1], [doc2] 같은 번호 대신 관련도 점수를 소수점 2자리까지 표시하세요 (예: [관련도: 0.85])
+        8. 참조 문서를 언급하지 말아주세요
         
         매뉴얼 외의 일반적인 질문, 다른 시스템에 대한 질문, 개인적인 의견을 묻는 질문에는 
         위의 3번 규칙에 따른 표준 응답을 사용하세요.
@@ -167,8 +168,8 @@ def main():
         st.markdown("### 📋 시스템 구성")
         st.markdown("""
         **Azure OpenAI**: GPT 모델 및 임베딩  
-        **Azure AI Search**: 벡터 검색 (인덱스: rag-1751860390373)  
-        **RAG 패턴**: 매뉴얼 기반 정확한 답변 제공
+        **Azure AI Search**: 벡터 검색  
+        **RAG 패턴**: 매뉴얼 기반 정확한 답변 제공  
         **범위**: CAIKE 흥행예측시스템 전용
         """)
     
