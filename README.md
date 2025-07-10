@@ -6,6 +6,9 @@ CAIKE 흥행예측시스템의 사용법을 안내하는 AI 챗봇입니다. Azu
 [![GitHub Issues](https://img.shields.io/github/issues/JeongHyeon-Kang/caikebot)](https://github.com/JeongHyeon-Kang/caikebot/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+## 🎞 구현화면
+![CAIKE_GUID](https://github.com/user-attachments/assets/8cc47f1d-fd5b-4eb1-a1d8-4e2578158c4c)
+
 ## 🚀 개요
 **흥행예측시스템 이용 가이드 챗봇**은 CAIKE 흥행예측시스템 매뉴얼을 기반으로 사용자 질문에 실시간으로 답변하는 AI 챗봇입니다.  
 사용자는 사용법, 기능 설명 등 다양한 질문을 편리하게 할 수 있습니다.  
@@ -16,6 +19,8 @@ AI 챗봇으로 대체하여 설명회에 대한 부담을 줄일 수 있습니�
 **Azure Open AI** : GPT 모델과 임베딩 기술을 활용해 자연어 이해 및 생성 수행  
 **Azure AI Search** : 벡터 검색 기술로 매뉴얼 내 관련 정보를 빠르게 탐색  
 **RAG (Retrieval-Augmented Generation)** : 매뉴얼 기반 정확한 답변 제공을 위해 검색 결과와 생성 모델을 결합한 패턴  
+
+
 
 ## 🎯 특징
 실시간 매뉴얼 검색으로 최신 정보 반영  
