@@ -15,9 +15,7 @@ AI 챗봇으로 대체하여 설명회에 대한 부담을 줄일 수 있습니�
 ## 🛠️ 기술 스택
 **Azure Open AI** : GPT 모델과 임베딩 기술을 활용해 자연어 이해 및 생성 수행  
 **Azure AI Search** : 벡터 검색 기술로 매뉴얼 내 관련 정보를 빠르게 탐색  
-**RAG (Retrieval-Augmented Generation)** : 매뉴얼 기반 정확한 답변 제공을 위해 검색 결과와 생성 모델을 결합한 패턴  
-
-
+![archi](https://github.com/user-attachments/assets/b7c23140-d302-4b4c-aa34-c4531482c841)
 
 ## 🎯 특징
 실시간 매뉴얼 검색으로 최신 정보 반영  
