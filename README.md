@@ -6,9 +6,6 @@ CAIKE 흥행예측시스템의 사용법을 안내하는 AI 챗봇입니다. Azu
 [![GitHub Issues](https://img.shields.io/github/issues/JeongHyeon-Kang/caikebot)](https://github.com/JeongHyeon-Kang/caikebot/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-## 🎞 구현화면
-![CAIKE_GUID](https://github.com/user-attachments/assets/8cc47f1d-fd5b-4eb1-a1d8-4e2578158c4c)
-
 ## 🚀 개요
 **흥행예측시스템 이용 가이드 챗봇**은 CAIKE 흥행예측시스템 매뉴얼을 기반으로 사용자 질문에 실시간으로 답변하는 AI 챗봇입니다.  
 사용자는 사용법, 기능 설명 등 다양한 질문을 편리하게 할 수 있습니다.  
