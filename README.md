@@ -44,3 +44,5 @@ VOD 흥행 예측 요청 방법 알려주세요
 **🎬 CAIKE 흥행예측시스템과 함께 더 나은 콘텐츠 전략을 수립하세요!**
 
 </div>
+
+https://user16-webapp-01-g2h0b7fghphebmdj.swedencentral-01.azurewebsites.net
